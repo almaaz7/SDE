@@ -1,7 +1,7 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-void sortcolor(vector<int> arr)
+void sortcolor(vector<int> &arr)
 {
     int i=0;
     int s=0;
@@ -18,10 +18,6 @@ void sortcolor(vector<int> arr)
         e--;
         }
     }
-    
-    for(int j=0;j<arr.size();j++){
-        cout<<arr[j]<<" ";
-    }
 
 }
 
@@ -33,4 +29,7 @@ int main()
     }
     cout<<endl;
     sortcolor(arr);
+        for(auto i:arr){
+        cout<<i<<" ";
+    }
 }
