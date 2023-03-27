@@ -1,7 +1,7 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-void sort(vector<int> arr){
+void sort(vector<int> &arr){
     int i=0;
     int s=0;
     int e=arr.size()-1;
@@ -15,9 +15,6 @@ void sort(vector<int> arr){
         e--;
     
     }}
-    for(int j=0;j<arr.size();j++){
-        cout<<arr[j]<<" ";
-    }
 
 }
 int main()
@@ -28,5 +25,8 @@ int main()
     }
     cout<<endl;
     sort(arr);
+        for(int i:arr){
+        cout<<i<<" ";
+    }
     
 }
