@@ -1,20 +1,14 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-void solve(vector<char> ans,string output,int n)
+void solve(vector<vector<int>> board)
 {
     
 }
 int main()
 {
-    int n = 4;
-    string output = "";
-    vector<char> ans;
-    solve(ans,output,n);
-    for(int i=0;i<n;i++){
-        for(int j=0;j<n;j++){
-            cout<<ans[i][j]<<" ";
-        }
-        cout<<endl;
-    }
+    int n;
+    vector<vector<int>> board(n,vector<int>n, 0);
+    int col = 0;
+    solve(board,col,n);
 }
