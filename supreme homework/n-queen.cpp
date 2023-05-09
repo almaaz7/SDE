@@ -91,7 +91,7 @@ void solve(vector<vector<char>> board,int col,int n)
 }
 int main()
 {
-    int n = 10;
+    int n = 8;
     vector<vector<char>> board(n, vector<char>(n,'.'));
     int col = 0;
     solve(board,col,n);

@@ -43,16 +43,19 @@ void quickSort(int arr[],int s,int e)
     int p = partition(arr,s,e);
 
     quickSort(arr,s,p-1);
-    quickSort(arr,p+1,e);
+    // quickSort(arr,p+1,e);
 }
 int main()
 {
-    int arr[] = {5,4,3,4,2,1,2,4,5,6,8};
-    int n = 11;
+    int arr[] = {7,10,4,20,15};
+    int n = 5;
     int s = 0;
     int e = n-1;
+    int k = 4;
     quickSort(arr,s,e);
     for(int i=0;i<n;i++){
         cout<<arr[i]<<" ";
     }
+
+    cout<<arr[k-1];
 }
