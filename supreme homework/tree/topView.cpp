@@ -1,4 +1,5 @@
 #include<iostream>
+#include<vector>
 #include<queue>
 #include<map>
 using namespace std;
@@ -58,9 +59,9 @@ void levelorderTraversal(Node* root){
     }
 }
 
-void topView(Node* root){
+vector<int> topView(Node* root,vector<int> & ans){
     if(root == NULL){
-        return;
+        return ans;
     }
 
     map<int, int> m;
@@ -92,12 +93,21 @@ void topView(Node* root){
     for(auto i : m){
         cout<<i.first<<"->"<<i.second<<endl;
     }
+    for(auto i : m){
+        ans.push_back(i.second);
+    }
+    return ans;
 }
 
 int main(){
 
     Node* root = buildTree();
+    vector<int> ans;
     levelorderTraversal(root);
-    topView(root);
+    topView(root,ans);
+    cout<<"in array"<<endl;
+    for(auto i : ans){
+        cout<<i<<" ";
+    }
 
 }
