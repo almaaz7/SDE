@@ -1,5 +1,6 @@
 #include<iostream>
 #include<queue>
+#include<vector>
 using namespace std;
 class Node{
     public:
@@ -87,10 +88,66 @@ int diameteroftree(Node* root){
     return ans;
 }
 
+bool isBalanced(Node* root){
+    if(root == NULL){
+        return true;
+    }
+
+    int leftheight = heightoftree(root->left);
+    int rightheight = heightoftree(root->right);
+    int diff = abs(leftheight - rightheight);
+    bool ans = (diff <= 1);
+
+    bool leftans = isBalanced(root->left);
+    bool rightans = isBalanced(root->right);
+
+    if(ans && rightans && leftans){
+        return true;
+    }return false;
+}
+
+vector<vector<int>> levelorder(Node* root,vector<vector<int>>& ans){
+    if(root == NULL){
+        return ans;
+    }
+
+    queue<Node*> q;
+    q.push(root);
+
+    while(!q.empty()){
+        Node* temp = q.front();
+        vector<int> subans;
+        q.pop();
+
+        if(root == NULL){
+            ans.push_back(subans);
+            if(!q.empty()){
+                q.push(NULL);
+            }
+        }else{
+            subans.push_back(temp->data);
+            if(temp->left){
+                q.push(temp->left);
+            }
+            if(root->right){
+                q.push(temp->right);
+            }
+        }
+    }
+    return ans;
+
+
+}
+
 int main()
 {
     Node* root = buildTree();
     levelOrderTraversal(root);
-    cout<<"height is: "<<heightoftree(root)-1<<endl;
-    cout<<"diameter is: "<<diameteroftree(root);
+    cout<<endl;
+    vector<vector<int>> ans;
+    vector<vector<int>> arr = levelorder(root,ans);
+    
+    // cout<<"height is: "<<heightoftree(root)-1<<endl;
+    // cout<<"diameter is: "<<diameteroftree(root)<<endl;
+    // cout<<"balanced or not: "<<isBalanced(root);
 }
