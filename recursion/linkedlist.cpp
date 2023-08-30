@@ -75,34 +75,88 @@ Node* deleteAtTail(Node* head,Node* tail){
     return tail;
 }
 
-Node* removeKthnode(Node* head, int& k){
+void printKNode(Node* head, int& k){
+    if(!head){
+        return;
+    }
+
+    printKNode(head->next,k);
+    k--;
+    if(k==0){
+        cout<<"kth node from end is "<<head->data;
+    }
+}
+
+Node* reverseLinkedlist(Node* head){
     if(!head){
         return NULL;
     }
-    removeKthnode(head->next,k);
-    k--;
-    if(k==0){
-        cout<<"data"<<head->data;
+    Node* prev = NULL;
+    Node* curr = head;
+
+    while(curr != NULL){
+        Node* temp = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = temp;
     }
-    return head;
+    return prev;
+
+}
+
+Node* recursivereverse(Node* head){
+    if(head == NULL || head->next==NULL){
+        return head;
+    }
+    Node* temp = recursivereverse(head->next);
+    Node* forward = head->next;
+    forward->next = head;
+    head->next = NULL;
+    return temp;
+}
+
+Node* reveseKgroup(Node* head, int k){
+    if(!head){
+        return NULL;
+    }
+    Node* curr = head;
+    Node* prev = NULL;
+    Node* temp;
+    int count = 0;
+    while(curr !=NULL && count<k){
+        temp = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = temp;
+        count++;
+    }
+
+    if(temp != NULL){
+        head->next = reveseKgroup(temp,k);
+    }
+    return prev;
+
 }
 
 int main(){
     Node* head = new Node(10);
     Node* second = new Node(20);
-    // Node* third = new Node(30);
-    // Node* fourth = new Node(40);
-    // Node* tail = new Node(50);
+    Node* third = new Node(30);
+    Node* fourth = new Node(40);
+    Node* tail = new Node(50);
 
     head->next = second;
-    // second->next = third;
-    // third->next = fourth;
-    // fourth->next = tail;
+    second->next = third;
+    third->next = fourth;
+    fourth->next = tail;
     int count = 0;
-    int n = 1;
+    int k = 2;
     printlist(head);
     cout<<endl;
-    head = removeKthnode(head,n);
-    cout<<endl;
+    
+    head = reveseKgroup(head,k);
     printlist(head);
+
+    
+    
 }

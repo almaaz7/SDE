@@ -128,14 +128,12 @@ Node* solve(Node* &head1,Node* &head2){
 int main()
 {
     Node* head1 = new Node(9);
-    Node* second1 = new Node(9);
+    Node* second1 = new Node(2);
     head1->next = second1;
 
     Node* head2 = new Node(9);
     Node* second2 = new Node(9);
-    // Node* third2 = new Node(4);
     head2->next = second2;
-    // second2->next = third2;
 
     Node* ans = solve(head1,head2);
     print(ans);
