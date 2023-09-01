@@ -105,30 +105,63 @@ public:
         }
         return false;
     }
+
+    bool isCycle(int src,unordered_map<int,bool>& visited,int parent){
+        visited[src] = true;
+        for(auto neighbour:adjlist[src]){
+            if(!visited[neighbour]){
+                if(isCycle(neighbour,visited,src)) return true;
+            }else if(neighbour != parent) return true;
+        }
+        return false;
+    }
+
+    bool cycleinDirectedgraph(int src,unordered_map<int,bool>& visited,unordered_map<int,bool>& dfsvisited){
+        visited[src] = true;
+        dfsvisited[src] = true;
+
+        for(auto neighbour:adjlist[src]){
+            if(!visited[neighbour]){
+                bool ans = cycleinDirectedgraph(neighbour,visited,dfsvisited);
+                if(ans) return true;
+            }else{
+                if(dfsvisited[neighbour]){
+                    return true;
+                }
+            }
+        }
+        dfsvisited[src] = false;
+        return false;
+    }
 };
 
 int main()
 {
     Graph g;
-    g.addEdge(0,1,0);
-    g.addEdge(1,2,0);
-    g.addEdge(1,4,0);
-    g.addEdge(2,3,0);
-    g.addEdge(4,3,0);
+    g.addEdge(0,1,1);
+    g.addEdge(1,2,1);
+    g.addEdge(2,3,1);
+    // g.addEdge(3,3,1);
     
 
     g.show();
-    unordered_map<int, bool> visited;
-    g.bfs(0, visited);
-    if(g.cyclicDetectionbfs(0)){
+    // unordered_map<int, bool> visited;
+    // g.bfs(0, visited);
+    // if(g.cyclicDetectionbfs(0)){
+    //     cout<<"\nCycle present"<<endl;
+    // }else{
+    //     cout<<"Cycle Absent"<<endl;
+    // }
+    // cout<<endl<<"DFS"<<endl;
+    // unordered_map<int,int> parent;
+    // parent[0] = -1;
+    unordered_map<int,bool> visited2;
+    unordered_map<int,bool> dfsvisited;
+    // g.dfs(0,visited2);
+    if(g.cycleinDirectedgraph(0,visited2,dfsvisited)){
         cout<<"\nCycle present"<<endl;
     }else{
         cout<<"Cycle Absent"<<endl;
     }
-    cout<<endl<<"DFS"<<endl;
-    unordered_map<int,int> parent;
-    parent[0] = -1;
-    unordered_map<int,bool> visited2;
-    g.dfs(0,visited2);
-    cout<<g.cyclicdetectiondfs(0,visited2,-1);
+
 }
